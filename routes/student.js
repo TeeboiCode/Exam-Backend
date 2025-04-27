@@ -7,6 +7,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const { paypalConfig, REGISTRATION_FEE } = require("../config/paypal");
+const studentController = require("../controllers/studentController");
 
 const paypal = require("@paypal/checkout-server-sdk");
 
@@ -136,5 +137,12 @@ function validateRegistrationData(data) {
     errors,
   };
 }
+
+// Student registration
+router.post("/register", studentController.registerStudent);
+
+// Payment endpoints
+router.post("/create-payment", studentController.createPayment);
+router.post("/payment-success", studentController.handlePaymentSuccess);
 
 module.exports = router;

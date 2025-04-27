@@ -14,6 +14,7 @@ const app = express();
 const sequelize = require("./config/db");
 const authRoutes = require("./routes/auth");
 const studentRoutes = require("./routes/student");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 // Import database models
 const models = require("./config/migrations");
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 // Register routes
 app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api/student", studentRoutes); // Student registration routes
+app.use("/api/payments", paymentRoutes);
 
 // Server configuration
 const PORT = process.env.PORT || 3000;
