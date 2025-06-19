@@ -17,13 +17,15 @@ const User = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    // Username field with uniqueness constraint
-    username: {
+    // Basic Information
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
-    // Email field with validation
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,21 +34,78 @@ const User = sequelize.define(
         isEmail: true,
       },
     },
-    // Password field (will be hashed before save)
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // Role-based access control
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    // Additional Information
+    maritalStatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    dob: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    localGovt: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nationality: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    department: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    privacyPolicy: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    // Role and Status
     role: {
       type: DataTypes.ENUM("student", "tutor", "parent", "admin", "superadmin"),
       allowNull: false,
       defaultValue: "student",
     },
-    // Account status
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
+    },
+    // Payment Information
+    paymentStatus: {
+      type: DataTypes.STRING,
+      defaultValue: "pending",
+    },
+    paymentAmount: {
+      type: DataTypes.DECIMAL(10, 2),
+      defaultValue: 2.5,
+    },
+    paymentDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     // Reference to admin who created the user (if applicable)
     created_by: {

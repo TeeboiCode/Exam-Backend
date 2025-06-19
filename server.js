@@ -54,6 +54,18 @@ async function startServer() {
         password: "admin123",
         role: "superadmin",
         isActive: true,
+        firstName: "Admin",
+        lastName: "User",
+        phone: "1234567890",
+        maritalStatus: "Single",
+        dob: "1990-01-01",
+        state: "Lagos",
+        localGovt: "Ikeja",
+        address: "Admin Address",
+        nationality: "Nigerian",
+        nin: "12345678901",
+        department: "Administration",
+        gender: "Male",
       });
       console.log("Default admin user created");
     }

@@ -4,18 +4,35 @@ USE exam_db;
 
 -- Users table
 CREATE TABLE IF NOT EXISTS Users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(255) NOT NULL, -- Added firstName column
+    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('student', 'tutor', 'parent', 'admin', 'superadmin') NOT NULL DEFAULT 'student',
-    isActive BOOLEAN DEFAULT true,
-    status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved',
+    phone VARCHAR(20),
+    maritalStatus VARCHAR(20),
+    dob DATE,
+    state VARCHAR(100),
+    localGovt VARCHAR(100),
+    address TEXT,
+    nationality VARCHAR(100),
+    nin VARCHAR(50),
+    department VARCHAR(100),
+    gender VARCHAR(20),
+    privacyPolicy BOOLEAN,
+    role VARCHAR(50),
+    isActive BOOLEAN,
+    paymentStatus VARCHAR(50),
+    paymentAmount DECIMAL(10, 2),
+    paymentDate DATE,
     created_by INT,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (created_by) REFERENCES Users(id)
 );
+
+
+
 
 -- Programs table (JAMB, WAEC, etc.)
 CREATE TABLE IF NOT EXISTS Programs (
@@ -300,3 +317,6 @@ INSERT INTO Questions (questionText, options, correctAnswer, explanation, diffic
 ('What is the square root of 16?', '["2", "4", "8", "16"]', '4', 'Square root calculation', 'easy', 1, 1),
 ('What is the area of a circle with radius 5?', '["15.7", "25", "31.4", "78.5"]', '78.5', 'Area of circle = πr²', 'medium', 4, 1)
 ON DUPLICATE KEY UPDATE id=id; 
+
+ALTER TABLE Users
+ADD COLUMN firstName VARCHAR(255) NOT NULL AFTER username;

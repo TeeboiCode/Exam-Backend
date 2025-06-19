@@ -1,22 +1,31 @@
 /**
- * PayPal Configuration
- * Sets up PayPal client with environment-specific credentials
+ * PayPal Configuration Module
+ * Sets up PayPal SDK client for server-side operations
  */
 
 const paypal = require("@paypal/checkout-server-sdk");
 
-// Creating an environment
-let clientId = process.env.PAYPAL_CLIENT_ID;
-let clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+// Create PayPal environment
+const environment =
+  process.env.NODE_ENV === "production"
+    ? new paypal.core.LiveEnvironment(
+        process.env.PAYPAL_CLIENT_ID,
+        process.env.PAYPAL_SECRET
+      )
+    : new paypal.core.SandboxEnvironment(
+        process.env.PAYPAL_CLIENT_ID,
+        process.env.PAYPAL_SECRET
+      );
 
-// This sample uses SandboxEnvironment. In production, use LiveEnvironment
-let environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
-let client = new paypal.core.PayPalHttpClient(environment);
+// Create PayPal client
+const client = new paypal.core.PayPalHttpClient(environment);
 
-// Registration fee in Naira
-const REGISTRATION_FEE = 2000;
+// Log PayPal configuration
+console.log("PayPal Configuration:", {
+  environment: process.env.NODE_ENV,
+  clientId: process.env.PAYPAL_CLIENT_ID ? "Set" : "Not Set",
+  secret: process.env.PAYPAL_SECRET ? "Set" : "Not Set",
+  baseUrl: process.env.PAYPAL_BASE_URL,
+});
 
-module.exports = {
-  paypalConfig: client,
-  REGISTRATION_FEE,
-};
+module.exports = { client };
